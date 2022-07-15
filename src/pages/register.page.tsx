@@ -5,7 +5,13 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../redux/api/authApi";
 import { toast } from "react-toastify";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form, Spinner } from "react-bootstrap";
+import FormInput from "./../components/FormInput";
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+};
 
 const registerSchema = object({
   name: string().nonempty("Full name is required").max(100),
@@ -67,36 +73,35 @@ const RegisterPage = () => {
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
+      console.log("submit");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
     //  Executing the RegisterUser Mutation
+
     registerUser(values);
   };
 
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+    <Container className="d-flex align-items-center justify-content-center vh-100 w-300 bg-light">
+      <FormProvider {...methods}>
+        <form>
+          <FormInput name="name" label="Full Name" type="name" />
+          <FormInput name="email" label="Email Address" type="email" />
+          <FormInput name="password" label="Password" type="password" />
+          <FormInput
+            name="passwordConfirm"
+            label="Confirm Password"
+            type="password"
+          />
+          <button type="submit" onSubmit={handleSubmit(onSubmitHandler)}>
+            Submit
+          </button>
+        </form>
+      </FormProvider>
+    </Container>
   );
 };
 

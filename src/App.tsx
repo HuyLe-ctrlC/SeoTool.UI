@@ -1,15 +1,16 @@
 import React from "react";
 import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
 import "./App.scss";
-import { Login } from "./pages/UserPages/Login";
 import { BrowserRouter as Router } from "react-router-dom";
+import LoginPage from "./pages/login.page";
+import RegisterPage from "./pages/register.page";
 
 function App() {
   return (
-    <Router>
-      <Login />
-    </Router>
+    <>
+      {/* <LoginPage /> */}
+      <RegisterPage />
+    </>
   );
 }
 

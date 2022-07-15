@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { buildQueries } from "@testing-library/react";
+import { LoginInput } from "../../pages/login.page";
+import { RegisterInput } from "../../pages/register.page";
 import { IGenericResponse } from "./types";
 import { userApi } from "./userApi";
 
